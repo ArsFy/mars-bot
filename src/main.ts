@@ -17,7 +17,11 @@ const pHashHex = async (path: string) => {
     try {
         const hash = await phash(fs.readFileSync(path));
         setTimeout(() => {
-            fs.unlinkSync(path);
+            try {
+                fs.unlinkSync(path);
+            } catch (err) {
+                console.error("Error deleting file:", err);
+            }
         }, 1000);
         return BigInt('0b' + hash).toString(16).padStart(16, '0');
     } catch (error) {
@@ -47,7 +51,8 @@ dp.onNewMessage(filters.media, async (msg) => {
             -1001214996122,
             -1001434817225,
             -1001341930464,
-            -1001590459584
+            -1001590459584,
+            -1002721098590
         ].includes(msg.chat.id)) {
             console.log("This message is not in the allowed channels, skipping...")
             return;
@@ -65,7 +70,7 @@ dp.onNewMessage(filters.media, async (msg) => {
                     const dist = distance(image.hash, hash);
                     if (dist <= 5) {
                         isFind = true;
-                        console.log("Found similar image:", image.url);
+                        console.log("Target", `https://s/${chatInfo.id.toString().slice(4)}/${msg.id}`, "Found similar image:", image.url);
                         
                         // Reply to the discussion message
                         setTimeout(async () => {
@@ -79,9 +84,10 @@ dp.onNewMessage(filters.media, async (msg) => {
                                             replyTo: discussionMsg.id,
                                         }
                                     )
-                                    await tg.sendText(discussionMsg.chat.id, "火星！此图在 "+image.url +" 已有记载", {
+                                    await tg.sendText(discussionMsg.chat.id, "火星！此图在 "+image.url +" 亦有记载", {
                                         replyTo: discussionMsg.id,
                                     })
+                                    console.log("Replied to discussion message with similar image link");
                                 } else {
                                     console.log("No discussion message found")
                                 }

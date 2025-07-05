@@ -70,7 +70,7 @@ dp.onNewMessage(filters.media, async (msg) => {
                     const dist = distance(image.hash, hash);
                     if (dist <= 5) {
                         isFind = true;
-                        console.log("Target", `https://s/${chatInfo.id.toString().slice(4)}/${msg.id}`, "Found similar image:", image.url);
+                        console.log("Target", `https://t.me/${chatInfo.id.toString().slice(4)}/${msg.id}`, "Found similar image:", image.url);
                         
                         // Reply to the discussion message
                         setTimeout(async () => {

@@ -1,0 +1,29 @@
+{
+    "name": "mars-bot",
+    "type": "module",
+    "version": "0.0.1",
+    "packageManager": "bun@1.2.18",
+    "license": "MIT",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
+        "dev": "bun --watch ./src/main.ts",
+        "start": "bun ./src/main.ts"
+    },
+    "dependencies": {
+        "@mtcute/bun": "^0.25.0",
+        "@mtcute/dispatcher": "^0.25.0",
+        "@types/pg": "^8.15.4",
+        "pg": "^8.16.3",
+        "sharp": "^0.34.2",
+        "sharp-phash": "^2.2.0"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^4.16.2",
+        "@types/bun": "^1.2.18",
+        "@types/node": "^24.0.10",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-import-x": "^4.16.1",
+        "typescript": "^5.8.3"
+    }
+}
